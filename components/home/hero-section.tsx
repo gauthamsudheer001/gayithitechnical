@@ -49,19 +49,7 @@ export function HeroSection() {
               </Button>
             </div>
 
-            {/* Trust badges */}
-            <div className="mt-10 flex flex-wrap gap-6">
-              {[
-                { icon: Shield, label: "Licensed & Insured" },
-                { icon: Clock, label: "24/7 Support" },
-                { icon: Award, label: "Certified Technicians" },
-              ].map((badge) => (
-                <div key={badge.label} className="flex items-center gap-2">
-                  <badge.icon className="h-4 w-4 text-primary" />
-                  <span className="text-sm text-card/60">{badge.label}</span>
-                </div>
-              ))}
-            </div>
+        
           </div>
 
           {/* Right side visual */}

@@ -3,8 +3,6 @@ import { Footer } from "@/components/footer"
 import { WhatsAppButton } from "@/components/whatsapp-button"
 import { HeroSection } from "@/components/home/hero-section"
 import { ServicesOverview } from "@/components/home/services-overview"
-import { WhyChooseUs } from "@/components/home/why-choose-us"
-import { StatsSection } from "@/components/home/stats-section"
 import { CTASection } from "@/components/home/cta-section"
 
 export default function HomePage() {
@@ -14,8 +12,6 @@ export default function HomePage() {
       <main>
         <HeroSection />
         <ServicesOverview />
-        <WhyChooseUs />
-        <StatsSection />
         <CTASection />
       </main>
       <Footer />

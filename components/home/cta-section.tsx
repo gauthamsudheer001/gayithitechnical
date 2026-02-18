@@ -11,7 +11,7 @@ export function CTASection() {
             <span className="text-balance">Ready to Improve Your Indoor Comfort?</span>
           </h2>
           <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-card/70">
-            Whether you need a new AC installation, routine maintenance, or emergency repair, our team is ready to help. Contact us today for a free consultation and quote.
+            Whether you need a new AC installation, routine maintenance, or emergency repair, our team is ready to help. Contact us today for a consultation and quote.
           </p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Button

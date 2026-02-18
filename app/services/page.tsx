@@ -12,7 +12,6 @@ import {
   Wind,
   ArrowRight,
   CheckCircle2,
-  Phone,
 } from "lucide-react"
 
 export const metadata: Metadata = {
@@ -103,6 +102,7 @@ export default function ServicesPage() {
   return (
     <>
       <Header />
+
       <main>
         {/* Page Header */}
         <section className="bg-foreground py-16 lg:py-20">
@@ -110,11 +110,15 @@ export default function ServicesPage() {
             <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
               Our Services
             </p>
+
             <h1 className="mb-4 font-heading text-4xl font-bold tracking-tight text-card md:text-5xl">
-              <span className="text-balance">Complete HVAC Solutions for Every Need</span>
+              Complete HVAC Solutions for Every Need
             </h1>
+
             <p className="max-w-2xl text-lg leading-relaxed text-card/70">
-              From installation to ongoing maintenance and emergency repairs, we offer a comprehensive suite of HVAC and technical services tailored to both residential and commercial clients.
+              From installation to ongoing maintenance and emergency repairs,
+              we offer a comprehensive suite of HVAC and technical services
+              tailored to both residential and commercial clients.
             </p>
           </div>
         </section>
@@ -123,26 +127,40 @@ export default function ServicesPage() {
         <section className="py-16 lg:py-24">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="space-y-16">
-              {services.map((service, index) => (
+              {services.map((service) => (
                 <div
                   key={service.title}
-                  id={service.title.toLowerCase().replace(/[^a-z]/g, "-")}
-                  className={`grid items-start gap-8 lg:grid-cols-2 lg:gap-12 ${
-                    index % 2 !== 0 ? "lg:direction-rtl" : ""
-                  }`}
+                  className="grid items-start gap-8 lg:grid-cols-1"
                 >
-                  {/* Content side */}
-                  <div className={index % 2 !== 0 ? "lg:order-2" : ""}>
+                  <div>
                     <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
                       <service.icon className="h-6 w-6" />
                     </div>
-                    <p className="mb-1 text-sm font-medium text-primary">{service.tagline}</p>
+
+                    <p className="mb-1 text-sm font-medium text-primary">
+                      {service.tagline}
+                    </p>
+
                     <h2 className="mb-4 font-heading text-2xl font-bold tracking-tight text-foreground md:text-3xl">
                       {service.title}
                     </h2>
+
                     <p className="mb-6 leading-relaxed text-muted-foreground">
                       {service.description}
                     </p>
+
+                    {/* Features list */}
+                    <ul className="mb-6 space-y-3">
+                      {service.features.map((feature) => (
+                        <li key={feature} className="flex items-start gap-3">
+                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
+                          <span className="text-sm text-muted-foreground">
+                            {feature}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+
                     <Button asChild>
                       <Link href="/contact">
                         Request a Quote
@@ -150,114 +168,13 @@ export default function ServicesPage() {
                       </Link>
                     </Button>
                   </div>
-
-                  {/* Features side */}
-                  <div
-                    className={`rounded-xl border border-border/60 bg-card p-6 ${
-                      index % 2 !== 0 ? "lg:order-1" : ""
-                    }`}
-                  >
-                    <h3 className="mb-4 font-heading text-sm font-bold uppercase tracking-wider text-foreground">
-                      What&apos;s Included
-                    </h3>
-                    <ul className="space-y-3">
-                      {service.features.map((feature) => (
-                        <li key={feature} className="flex items-start gap-3">
-                          <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                          <span className="text-sm text-muted-foreground">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Process */}
-        <section className="bg-secondary py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="mb-12 text-center">
-              <p className="mb-2 text-sm font-semibold uppercase tracking-wider text-primary">
-                How We Work
-              </p>
-              <h2 className="mb-4 font-heading text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                <span className="text-balance">Our Simple 4-Step Process</span>
-              </h2>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {[
-                {
-                  step: "01",
-                  title: "Consultation",
-                  description: "We assess your needs and provide expert recommendations tailored to your space and budget.",
-                },
-                {
-                  step: "02",
-                  title: "Proposal",
-                  description: "Receive a detailed, transparent quote with clear timelines and no hidden costs.",
-                },
-                {
-                  step: "03",
-                  title: "Execution",
-                  description: "Our certified team carries out the work with precision, cleanliness, and minimal disruption.",
-                },
-                {
-                  step: "04",
-                  title: "Support",
-                  description: "We provide ongoing maintenance, warranty support, and 24/7 emergency assistance.",
-                },
-              ].map((item) => (
-                <div key={item.step} className="rounded-xl border border-border/60 bg-card p-6">
-                  <span className="font-heading text-3xl font-bold text-primary/20">
-                    {item.step}
-                  </span>
-                  <h3 className="mt-2 font-heading text-base font-bold text-foreground">
-                    {item.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                    {item.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* CTA */}
-        <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="rounded-2xl bg-foreground p-8 text-center md:p-12">
-              <h2 className="mb-4 font-heading text-3xl font-bold tracking-tight text-card md:text-4xl">
-                <span className="text-balance">Need a Custom HVAC Solution?</span>
-              </h2>
-              <p className="mx-auto mb-8 max-w-2xl leading-relaxed text-card/70">
-                Every project is unique. Contact us today to discuss your requirements and get a tailored proposal from our HVAC experts.
-              </p>
-              <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <Button asChild size="lg" className="font-medium">
-                  <Link href="/contact">
-                    Contact Us Today
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-card/20 font-medium text-card hover:bg-card/10 hover:text-card bg-transparent"
-                >
-                  <a href="tel:+971000000000">
-                    <Phone className="mr-2 h-4 w-4" />
-                    Call Us Now
-                  </a>
-                </Button>
-              </div>
             </div>
           </div>
         </section>
       </main>
+
       <Footer />
       <WhatsAppButton />
     </>
