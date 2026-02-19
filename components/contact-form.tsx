@@ -15,6 +15,8 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
   e.preventDefault()
   setStatus("submitting")
 
+  const form = e.currentTarget
+
   try {
     await fetch("/api/contact", {
       method: "POST",
@@ -22,18 +24,23 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(
-        Object.fromEntries(new FormData(e.currentTarget))
+        Object.fromEntries(new FormData(form))
       ),
     })
 
-    setStatus("success")
-    e.currentTarget.reset()
+    // DO NOT check status
+    // DO NOT parse JSON
+    // Just assume success if no crash
 
-  } catch (error) {
-    console.error("Submit error:", error)
+    setStatus("success")
+    form.reset()
+
+  } catch (err) {
+    console.error("Real fetch error:", err)
     setStatus("error")
   }
 }
+
 
 
   if (status === "success") {
