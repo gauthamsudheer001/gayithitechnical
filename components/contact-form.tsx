@@ -10,57 +10,59 @@ export function ContactForm() {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle")
-async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault()
-  setStatus("submitting")
 
-  const formData = new FormData(e.currentTarget)
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setStatus("submitting")
 
-  const data = {
-    name: formData.get("name"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
-    service: formData.get("service"),
-    message: formData.get("message"),
-  }
+    const formData = new FormData(e.currentTarget)
 
-  try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-
-    console.log("Status:", res.status)
-
-    if (res.status === 200) {
-      setStatus("success")
-      e.currentTarget.reset()
-    } else {
-      setStatus("error")
+    const data = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      service: formData.get("service"),
+      message: formData.get("message"),
     }
 
-  } catch (error) {
-    console.error("Error:", error)
-    setStatus("error")
-  }
-}
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
 
+      const result = await res.json()
+
+      console.log("Status:", res.status)
+      console.log("Result:", result)
+
+      if (res.status === 200) {
+        setStatus("success")
+        e.currentTarget.reset()
+        return
+      }
+
+      setStatus("error")
+    } catch (error) {
+      console.error("Submit error:", error)
+      setStatus("error")
+    }
+  }
 
   if (status === "success") {
     return (
       <div className="flex flex-col items-center justify-center rounded-xl border border-border/60 bg-card p-8 text-center">
-        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-          <CheckCircle2 className="h-8 w-8 text-primary" />
+        <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
+          <CheckCircle2 className="h-8 w-8 text-green-600" />
         </div>
-        <h3 className="mb-2 font-heading text-lg font-bold text-foreground">
+        <h3 className="mb-2 text-lg font-bold">
           Message Sent Successfully
         </h3>
         <p className="mb-6 text-sm text-muted-foreground">
-          Thank you for contacting Gayithi Technical Services. We will get back
-          to you within 24 hours.
+          Thank you for contacting Gayithi Technical Services. We will get back to you soon.
         </p>
         <button
           onClick={() => setStatus("idle")}
@@ -73,13 +75,11 @@ async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
   }
 
   return (
-<form
-  onSubmit={handleSubmit}
-
-  className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
->
-
-      <h3 className="mb-6 font-heading text-lg font-bold text-foreground">
+    <form
+      onSubmit={handleSubmit}
+      className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
+    >
+      <h3 className="mb-6 text-lg font-bold">
         Send Us a Message
       </h3>
 
