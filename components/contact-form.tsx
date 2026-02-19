@@ -11,38 +11,30 @@ export function ContactForm() {
     "idle" | "submitting" | "success" | "error"
   >("idle")
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setStatus("submitting")
+async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault()
+  setStatus("submitting")
 
-    const formData = new FormData(e.currentTarget)
+  try {
+    await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(
+        Object.fromEntries(new FormData(e.currentTarget))
+      ),
+    })
 
-    const data = {
-      name: formData.get("name"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      service: formData.get("service"),
-      message: formData.get("message"),
-    }
+    setStatus("success")
+    e.currentTarget.reset()
 
-    try {
-      await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-
-      // If fetch completes without throwing → success
-      setStatus("success")
-      e.currentTarget.reset()
-
-    } catch (error) {
-      console.error("Submit error:", error)
-      setStatus("error")
-    }
+  } catch (error) {
+    console.error("Submit error:", error)
+    setStatus("error")
   }
+}
+
 
   if (status === "success") {
     return (
@@ -67,10 +59,11 @@ export function ContactForm() {
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
-    >
+   <form
+  onSubmit={handleSubmit}
+  className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
+>
+
       <h3 className="mb-6 text-lg font-bold">
         Send Us a Message
       </h3>
