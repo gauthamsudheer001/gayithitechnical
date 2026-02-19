@@ -155,11 +155,12 @@ export function ContactForm() {
           />
         </div>
 
-        <Button
-          type="submit"
-          className="w-full font-medium"
-          disabled={status === "submitting"}
-        >
+       <button
+  type="submit"
+  className="w-full rounded-md bg-primary px-4 py-2 text-white"
+  disabled={status === "submitting"}
+>
+
           {status === "submitting" ? "Sending..." : "Send Message"}
         </Button>
       </div>
