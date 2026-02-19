@@ -1,41 +1,33 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY!);
-
-async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-  e.preventDefault()
-  setStatus("submitting")
-
-  const formData = new FormData(e.currentTarget)
-
-  const data = {
-    name: formData.get("name"),
-    phone: formData.get("phone"),
-    email: formData.get("email"),
-    service: formData.get("service"),
-    message: formData.get("message"),
-  }
-
+export async function POST(req: Request) {
   try {
-    const res = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
+    const resend = new Resend(process.env.RESEND_API_KEY!);
 
-    const result = await res.json()
+    const body = await req.json();
+    const { name, phone, email, service, message } = body;
 
-    if (result.success) {
-      setStatus("success")
-      e.currentTarget.reset()
-    } else {
-      setStatus("error")
-    }
+    await resend.emails.send({
+      from: "Gayithi Technical <onboarding@resend.dev>",
+      to: "gauthamsudheer001@gmail.com",
+      subject: "New HVAC Website Contact",
+      reply_to: email,
+      html: `
+        <h2>New Message from Website</h2>
+        <p><b>Name:</b> ${name}</p>
+        <p><b>Phone:</b> ${phone}</p>
+        <p><b>Email:</b> ${email}</p>
+        <p><b>Service:</b> ${service}</p>
+        <p><b>Message:</b> ${message}</p>
+      `,
+    });
 
-  } catch (error) {
-    setStatus("error")
+    return Response.json({ success: true });
+
+  } catch (error: any) {
+    return Response.json(
+      { success: false, error: error.message },
+      { status: 500 }
+    );
   }
 }
-
