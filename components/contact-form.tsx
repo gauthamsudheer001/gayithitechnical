@@ -1,11 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { Send, CheckCircle2, AlertCircle } from "lucide-react"
+import { CheckCircle2, AlertCircle } from "lucide-react"
 
 export function ContactForm() {
   const [status, setStatus] = useState<
@@ -59,9 +58,12 @@ export function ContactForm() {
           Thank you for contacting Gayithi Technical Services. We will get back
           to you within 24 hours.
         </p>
-        <Button onClick={() => setStatus("idle")} variant="outline">
+        <button
+          onClick={() => setStatus("idle")}
+          className="rounded-md border px-4 py-2"
+        >
           Send Another Message
-        </Button>
+        </button>
       </div>
     )
   }
@@ -76,9 +78,9 @@ export function ContactForm() {
       </h3>
 
       {status === "error" && (
-        <div className="mb-6 flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3">
-          <AlertCircle className="h-4 w-4 shrink-0 text-destructive" />
-          <p className="text-sm text-destructive">
+        <div className="mb-6 flex items-center gap-2 rounded-lg border border-red-300 bg-red-100 px-4 py-3">
+          <AlertCircle className="h-4 w-4 text-red-600" />
+          <p className="text-sm text-red-600">
             Something went wrong. Please try again.
           </p>
         </div>
@@ -87,42 +89,19 @@ export function ContactForm() {
       <div className="space-y-4">
         <div className="grid gap-4 sm:grid-cols-2">
           <div className="space-y-2">
-            <Label htmlFor="name">
-              Full Name <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="name"
-              name="name"
-              required
-              placeholder="Your full name"
-            />
+            <Label htmlFor="name">Full Name *</Label>
+            <Input id="name" name="name" required />
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="phone">
-              Phone Number <span className="text-destructive">*</span>
-            </Label>
-            <Input
-              id="phone"
-              name="phone"
-              type="tel"
-              required
-              placeholder="+971 XX XXX XXXX"
-            />
+            <Label htmlFor="phone">Phone Number *</Label>
+            <Input id="phone" name="phone" type="tel" required />
           </div>
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="email">
-            Email Address <span className="text-destructive">*</span>
-          </Label>
-          <Input
-            id="email"
-            name="email"
-            type="email"
-            required
-            placeholder="your@email.com"
-          />
+          <Label htmlFor="email">Email Address *</Label>
+          <Input id="email" name="email" type="email" required />
         </div>
 
         <div className="space-y-2">
@@ -130,7 +109,7 @@ export function ContactForm() {
           <select
             id="service"
             name="service"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="w-full rounded-md border px-3 py-2"
           >
             <option value="">Select a service</option>
             <option value="AC Installation">AC Installation</option>
@@ -143,26 +122,17 @@ export function ContactForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="message">
-            Message <span className="text-destructive">*</span>
-          </Label>
-          <Textarea
-            id="message"
-            name="message"
-            required
-            rows={5}
-            placeholder="Tell us about your project..."
-          />
+          <Label htmlFor="message">Message *</Label>
+          <Textarea id="message" name="message" rows={5} required />
         </div>
 
-       <button
-  type="submit"
-  className="w-full rounded-md bg-primary px-4 py-2 text-white"
-  disabled={status === "submitting"}
->
-
+        <button
+          type="submit"
+          className="w-full rounded-md bg-blue-600 px-4 py-2 text-white"
+          disabled={status === "submitting"}
+        >
           {status === "submitting" ? "Sending..." : "Send Message"}
-        </Button>
+        </button>
       </div>
     </form>
   )
