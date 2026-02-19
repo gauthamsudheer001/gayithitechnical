@@ -10,40 +10,44 @@ export function ContactForm() {
   const [status, setStatus] = useState<
     "idle" | "submitting" | "success" | "error"
   >("idle")
+async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  e.preventDefault()
+  setStatus("submitting")
 
-  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault()
-    setStatus("submitting")
+  const formData = new FormData(e.currentTarget)
 
-    const formData = new FormData(e.currentTarget)
+  const data = {
+    name: formData.get("name"),
+    phone: formData.get("phone"),
+    email: formData.get("email"),
+    service: formData.get("service"),
+    message: formData.get("message"),
+  }
 
-    const data = {
-      name: formData.get("name"),
-      phone: formData.get("phone"),
-      email: formData.get("email"),
-      service: formData.get("service"),
-      message: formData.get("message"),
-    }
+  try {
+    const res = await fetch("/api/contact", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
 
-    try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
+    console.log("Status:", res.status)
 
-      if (!res.ok) {
-        throw new Error("Failed to send")
-      }
-
+    if (res.status === 200) {
       setStatus("success")
       e.currentTarget.reset()
-    } catch (error) {
+    } else {
       setStatus("error")
     }
+
+  } catch (error) {
+    console.error("Error:", error)
+    setStatus("error")
   }
+}
+
 
   if (status === "success") {
     return (
@@ -69,11 +73,9 @@ export function ContactForm() {
   }
 
   return (
-    <form
-  onSubmit={(e) => {
-    e.preventDefault()
-    handleSubmit(e)
-  }}
+<form
+  onSubmit={handleSubmit}
+
   className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
 >
 
