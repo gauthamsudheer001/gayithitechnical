@@ -70,9 +70,13 @@ export function ContactForm() {
 
   return (
     <form
-      onSubmit={handleSubmit}
-      className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
-    >
+  onSubmit={(e) => {
+    e.preventDefault()
+    handleSubmit(e)
+  }}
+  className="rounded-xl border border-border/60 bg-card p-6 md:p-8"
+>
+
       <h3 className="mb-6 font-heading text-lg font-bold text-foreground">
         Send Us a Message
       </h3>
