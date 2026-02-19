@@ -1,7 +1,5 @@
 "use client"
 
-import React from "react"
-
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -10,15 +8,42 @@ import { Label } from "@/components/ui/label"
 import { Send, CheckCircle2, AlertCircle } from "lucide-react"
 
 export function ContactForm() {
-  const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle")
+  const [status, setStatus] = useState<
+    "idle" | "submitting" | "success" | "error"
+  >("idle")
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault()
     setStatus("submitting")
 
-    // Simulate form submission
-    await new Promise((resolve) => setTimeout(resolve, 1500))
-    setStatus("success")
+    const formData = new FormData(e.currentTarget)
+
+    const data = {
+      name: formData.get("name"),
+      phone: formData.get("phone"),
+      email: formData.get("email"),
+      service: formData.get("service"),
+      message: formData.get("message"),
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      })
+
+      if (!res.ok) {
+        throw new Error("Failed to send")
+      }
+
+      setStatus("success")
+      e.currentTarget.reset()
+    } catch (error) {
+      setStatus("error")
+    }
   }
 
   if (status === "success") {
@@ -31,7 +56,8 @@ export function ContactForm() {
           Message Sent Successfully
         </h3>
         <p className="mb-6 text-sm text-muted-foreground">
-          Thank you for contacting Gayithi Technical Services. We will get back to you within 24 hours.
+          Thank you for contacting Gayithi Technical Services. We will get back
+          to you within 24 hours.
         </p>
         <Button onClick={() => setStatus("idle")} variant="outline">
           Send Another Message
@@ -53,7 +79,7 @@ export function ContactForm() {
         <div className="mb-6 flex items-center gap-2 rounded-lg border border-destructive/30 bg-destructive/10 px-4 py-3">
           <AlertCircle className="h-4 w-4 shrink-0 text-destructive" />
           <p className="text-sm text-destructive">
-            Something went wrong. Please try again or contact us directly.
+            Something went wrong. Please try again.
           </p>
         </div>
       )}
@@ -69,9 +95,9 @@ export function ContactForm() {
               name="name"
               required
               placeholder="Your full name"
-              autoComplete="name"
             />
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="phone">
               Phone Number <span className="text-destructive">*</span>
@@ -82,7 +108,6 @@ export function ContactForm() {
               type="tel"
               required
               placeholder="+971 XX XXX XXXX"
-              autoComplete="tel"
             />
           </div>
         </div>
@@ -97,7 +122,6 @@ export function ContactForm() {
             type="email"
             required
             placeholder="your@email.com"
-            autoComplete="email"
           />
         </div>
 
@@ -106,15 +130,15 @@ export function ContactForm() {
           <select
             id="service"
             name="service"
-            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+            className="flex h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             <option value="">Select a service</option>
-            <option value="ac-installation">AC Installation</option>
-            <option value="ac-maintenance">AC Maintenance</option>
-            <option value="ac-repair">AC Repair</option>
-            <option value="ducting">GI & PI Ducting</option>
-            <option value="ventilation">Ventilation Systems</option>
-            <option value="other">Other</option>
+            <option value="AC Installation">AC Installation</option>
+            <option value="AC Maintenance">AC Maintenance</option>
+            <option value="AC Repair">AC Repair</option>
+            <option value="GI & PI Ducting">GI & PI Ducting</option>
+            <option value="Ventilation Systems">Ventilation Systems</option>
+            <option value="Other">Other</option>
           </select>
         </div>
 
@@ -127,34 +151,16 @@ export function ContactForm() {
             name="message"
             required
             rows={5}
-            placeholder="Tell us about your project or requirements..."
+            placeholder="Tell us about your project..."
           />
         </div>
 
-        <Button type="submit" className="w-full font-medium" disabled={status === "submitting"}>
-          {status === "submitting" ? (
-            <>
-              <svg
-                className="mr-2 h-4 w-4 animate-spin"
-                viewBox="0 0 24 24"
-                fill="none"
-                aria-hidden="true"
-              >
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path
-                  className="opacity-75"
-                  fill="currentColor"
-                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                />
-              </svg>
-              Sending...
-            </>
-          ) : (
-            <>
-              <Send className="mr-2 h-4 w-4" />
-              Send Message
-            </>
-          )}
+        <Button
+          type="submit"
+          className="w-full font-medium"
+          disabled={status === "submitting"}
+        >
+          {status === "submitting" ? "Sending..." : "Send Message"}
         </Button>
       </div>
     </form>
