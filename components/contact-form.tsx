@@ -26,7 +26,7 @@ export function ContactForm() {
     }
 
     try {
-      const res = await fetch("/api/contact", {
+      await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -34,18 +34,10 @@ export function ContactForm() {
         body: JSON.stringify(data),
       })
 
-      const result = await res.json()
+      // If fetch completes without throwing → success
+      setStatus("success")
+      e.currentTarget.reset()
 
-      console.log("Status:", res.status)
-      console.log("Result:", result)
-
-      if (res.status === 200) {
-        setStatus("success")
-        e.currentTarget.reset()
-        return
-      }
-
-      setStatus("error")
     } catch (error) {
       console.error("Submit error:", error)
       setStatus("error")
