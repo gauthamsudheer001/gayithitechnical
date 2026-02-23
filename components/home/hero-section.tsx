@@ -18,7 +18,7 @@ export function HeroSection() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
+         <div className="mx-auto max-w-3xl text-center">
           {/* Text Content */}
           <div>
             <div className="mb-6 inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5">
@@ -53,18 +53,7 @@ export function HeroSection() {
           </div>
 
           {/* Right side visual */}
-          <div className="relative hidden lg:block">
-            <div className="relative mx-auto h-[420px] w-full max-w-md overflow-hidden rounded-2xl">
-              <Image
-                src="/images/hvac-hero.png"
-                alt="Professional HVAC technician working on air conditioning unit"
-                fill
-                className="object-contain"
-                priority
-              />
-              <div className="absolute inset-0 bg-primary/10" />
-            </div>
-          </div>
+        
         </div>
       </div>
     </section>
