@@ -59,7 +59,7 @@ export function HeroSection() {
                 src="/images/hvac-hero.png"
                 alt="Professional HVAC technician working on air conditioning unit"
                 fill
-                className="object-cover"
+                className="object-contain"
                 priority
               />
               <div className="absolute inset-0 bg-primary/10" />
