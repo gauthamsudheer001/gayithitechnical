@@ -56,7 +56,7 @@ export function HeroSection() {
           <div className="relative hidden lg:block">
             <div className="relative mx-auto h-[420px] w-full max-w-md overflow-hidden rounded-2xl">
               <Image
-                src="/images/hvac-hero.jpg"
+                src="/images/hvac-hero.png"
                 alt="Professional HVAC technician working on air conditioning unit"
                 fill
                 className="object-cover"
