@@ -17,24 +17,28 @@ export function HeroSection() {
       </div>
 
       <div className="relative mx-auto max-w-7xl px-4 py-20 lg:px-8 lg:py-32">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="mx-auto max-w-3xl text-left lg:text-center">
 
-          <div className="mb-6 inline-flex items-center justify-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5">
+          {/* Badge */}
+          <div className="mb-6 inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 lg:justify-center">
             <span className="text-xs font-medium text-primary">
               Professional HVAC Solutions
             </span>
           </div>
 
+          {/* Heading */}
           <h1 className="mb-6 font-heading text-4xl font-bold leading-tight tracking-tight text-card md:text-5xl lg:text-6xl">
             Expert HVAC & Technical Services You Can Trust
           </h1>
 
-          <p className="mx-auto mb-8 max-w-2xl text-lg leading-relaxed text-card/70">
+          {/* Paragraph */}
+          <p className="mb-8 text-lg leading-relaxed text-card/70 lg:mx-auto lg:max-w-2xl">
             Gayithi Technical Services delivers premium AC installation, maintenance, repair, ducting, and ventilation solutions for residential and commercial properties.
           </p>
 
-          <div className="flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-            <Button asChild size="lg" className="font-medium">
+          {/* Buttons */}
+          <div className="flex flex-col gap-3 sm:flex-row lg:justify-center">
+            <Button asChild size="lg" className="font-medium w-full sm:w-auto">
               <Link href="/services">
                 Our Services
                 <ArrowRight className="ml-2 h-4 w-4" />
@@ -45,7 +49,7 @@ export function HeroSection() {
               asChild
               variant="outline"
               size="lg"
-              className="border-card/20 font-medium text-card hover:bg-card/10 hover:text-card bg-transparent"
+              className="border-card/20 font-medium text-card hover:bg-card/10 hover:text-card bg-transparent w-full sm:w-auto"
             >
               <Link href="/contact">Get a Free Quote</Link>
             </Button>
