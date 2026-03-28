@@ -15,14 +15,14 @@ const contactInfo = [
   {
     icon: Phone,
     title: "Phone",
-    details: ["+971 553659379", "+971 507914670"],
+    details: ["+971 553659379", "+971 502084481"], // ✅ fixed number
     action: { href: "tel:+971553659379", label: "Call Now" },
   },
   {
     icon: Mail,
     title: "Email",
-    details: ["gayithitechnical@gmail.com"],
-    action: { href: "mailto:gayithitechnical@gmail.com", label: "Send Email" },
+    details: ["gayithitechnical@gmail.com", "info@gayithi.com"], // ✅ both emails
+    action: { href: "mailto:info@gayithi.com", label: "Send Email" }, // ✅ button goes here
   },
   {
     icon: MapPin,
@@ -56,26 +56,42 @@ export default function ContactPage() {
         <section className="py-16 lg:py-24">
           <div className="mx-auto max-w-7xl px-4 lg:px-8">
             <div className="grid gap-10 lg:grid-cols-5">
+
               {/* Left: Contact Info */}
               <div className="lg:col-span-2">
                 <h2 className="mb-6 font-heading text-2xl font-bold text-foreground">
                   Contact Information
                 </h2>
+
                 <div className="space-y-6">
                   {contactInfo.map((item) => (
                     <div key={item.title} className="flex gap-4">
                       <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                         <item.icon className="h-5 w-5" />
                       </div>
+
                       <div>
                         <h3 className="font-heading text-sm font-bold text-foreground">
                           {item.title}
                         </h3>
+
+                        {/* ✅ Clickable details */}
                         {item.details.map((detail) => (
-                          <p key={detail} className="text-sm text-muted-foreground">
+                          <a
+                            key={detail}
+                            href={
+                              item.title === "Phone"
+                                ? `tel:${detail.replace(/\s+/g, "")}`
+                                : item.title === "Email"
+                                ? `mailto:${detail}`
+                                : undefined
+                            }
+                            className="block text-sm text-muted-foreground hover:text-primary"
+                          >
                             {detail}
-                          </p>
+                          </a>
                         ))}
+
                         {item.action && (
                           <a
                             href={item.action.href}
@@ -99,9 +115,12 @@ export default function ContactPage() {
                       <h3 className="font-heading text-sm font-bold text-foreground">
                         Chat on WhatsApp
                       </h3>
-                      <p className="text-xs text-muted-foreground">Quick response guaranteed</p>
+                      <p className="text-xs text-muted-foreground">
+                        Quick response guaranteed
+                      </p>
                     </div>
                   </div>
+
                   <a
                     href="https://wa.me/971553659379?text=Hello%20Gayithi%20Technical%20Services%2C%20I%20would%20like%20to%20inquire%20about%20your%20services."
                     target="_blank"
@@ -117,12 +136,12 @@ export default function ContactPage() {
               <div className="lg:col-span-3">
                 <ContactForm />
               </div>
+
             </div>
           </div>
         </section>
-
-
       </main>
+
       <Footer />
       <WhatsAppButton />
     </>
