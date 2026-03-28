@@ -68,8 +68,8 @@ export function Footer() {
                   <a href="tel:+971553659379" className="text-sm text-card/70 hover:text-primary">
                     +971 553659379
                   </a>
-                  <a href="tel:+971507914670" className="text-sm text-card/70 hover:text-primary">
-                    +971 507914670
+                  <a href="tel:+971502084481" className="text-sm text-card/70 hover:text-primary">
+                    +971 502084481
                   </a>
                 </div>
               </li>
