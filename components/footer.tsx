@@ -68,18 +68,29 @@ export function Footer() {
                   <a href="tel:+971553659379" className="text-sm text-card/70 hover:text-primary">
                     +971 553659379
                   </a>
-                  <a href="tel:+971502084481000" className="text-sm text-card/70 hover:text-primary">
-                    +971 502084481000
+                  <a href="tel:+971502084481" className="text-sm text-card/70 hover:text-primary">
+                    +971 502084481
                   </a>
                 </div>
               </li>
 
-              <li className="flex items-start gap-2.5">
-                <Mail className="mt-0.5 h-4 w-4 text-primary" />
-                <a href="mailto:gayithitechnical@gmail.com" className="text-sm text-card/70 hover:text-primary">
-                  gayithitechnical@gmail.com
-                </a>
-              </li>
+             <li className="flex items-start gap-2.5">
+  <Mail className="mt-0.5 h-4 w-4 text-primary" />
+  <div className="flex flex-col">
+    <a
+      href="mailto:gayithitechnical@gmail.com"
+      className="text-sm text-card/70 hover:text-primary"
+    >
+      gayithitechnical@gmail.com
+    </a>
+    <a
+      href="mailto:info@gayithi.com"
+      className="text-sm text-card/70 hover:text-primary"
+    >
+      info@gayithi.com
+    </a>
+  </div>
+</li>
 
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 text-primary" />
